@@ -1,0 +1,14 @@
+{
+  "name": "Kniffel Punktekarte",
+  "short_name": "kniffel",
+  "description": "Eine Kniffel Punktekarte",
+  "id": "/kniffel/",
+  "start_url": "/kniffel/",
+  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [{
+    "src": "./android-chrome-192x192.png", "sizes": "192x192",
+    "type": "image/png"
+  }]
+}
