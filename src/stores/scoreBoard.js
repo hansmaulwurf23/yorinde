@@ -150,7 +150,7 @@ export const useBoardStore = defineStore("boardStore", () => {
     }
   },
   {
-    persist: false,
+    persist: true,
   }
 )
 
