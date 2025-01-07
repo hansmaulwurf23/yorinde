@@ -9,8 +9,9 @@ const store = useBoardStore()
   <div class="m-3">
     <table class="table table-sm">
       <tbody>
-      <tr v-for="(v, i) in store.points" :class="{'border-secondary': [5, 12].includes(i)}">
-        <td @click="store.setPoints(i)" :class="{'text-secondary': store.points[i] !== undefined}">
+      <tr v-for="(v, i) in store.points" @click="store.setPoints(i)" @contextmenu="store.setPoints(i, true)"
+          :class="{'border-secondary': [5, 12].includes(i)}">
+        <td :class="{'text-secondary': store.points[i] !== null}">
           {{ labels[store.currentLocale].board[i] }}
         </td>
         <td class="text-end fw-bold">{{ v }}</td>
