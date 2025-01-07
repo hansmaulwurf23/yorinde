@@ -16,6 +16,15 @@ const labels = {
       [YAHTZEE]: 'Keine fünf Gleichen!'
     },
     'alreadyChecked': 'Bereits abgehakt!',
+    'alreadyFiveDices': 'Es sind bereits 5 Würfel gelegt worden',
+    'help': 'Zum Spielen einfach die gewürfelten Augen oben anklicken und dann die Zeile anklicken, die dafür verwendet' +
+      ' werden soll. Zum Streichen ebenfalls die Zeile anklicken, dann wird entsprechend 0 Punkte gesetzt und ein ' +
+      'Hinweis angezeigt. Die Punkte von Full House, der kleinen und großen Straße und Kniffel betragen 25, 30, 40 und 50' +
+      ' Punkte (hier kann man auch auf die Zeile doppelt klicken ohne die Augen zu setzen). Für die Punkte für Einser bis ' +
+      'Sechser müssen lediglich die entsprechenden Augen gesetzt sein und nicht ' +
+      'der komplette Wurf. Bei allen anderen sollte der Teil des Wurfs gesetzt sein, der für die Punkte zählt. Verklickt' +
+      ' man sich, kann die Rückgängig-Funktion verwendet werden. Diese hebt die letzte Zeile wieder auf, dann können die ' +
+      'geworfenen Augen erneut gesetzt und die richtige Zeile verwendet werden.'
   },
   'en': {
     'board': [
@@ -32,6 +41,8 @@ const labels = {
       [YAHTZEE]: 'Not five of a kind!'
     },
     'alreadyChecked': 'Already Checked!',
+    'alreadyFiveDices': 'There are already five dices thrown!',
+    'help': 'TODO. In the mean time use the german version.'
   }
 }
 
