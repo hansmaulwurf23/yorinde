@@ -1,7 +1,7 @@
 <script setup>
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import {mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6} from '@mdi/js';
-
+import SvgIcon from "vue3-icon"
 const store = useBoardStore()
 const dices = [mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6];
 </script>
