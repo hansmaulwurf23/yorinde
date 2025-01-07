@@ -2,9 +2,9 @@ import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import labels from "@/labels.js";
 
-export const useBoardStore = defineStore("boardStore", () => {
+export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
     const rolledDices = ref(new Array(6).fill(0))
-    const points = ref(new Array(13).fill(undefined))
+    const points = ref(new Array(13).fill(null))
     const undoStack = ref([])
     const currentError = ref("")
     const currentErrorIsOnlyWarning = ref(false)
@@ -13,42 +13,42 @@ export const useBoardStore = defineStore("boardStore", () => {
     const currentLocale = ref("de")
 
     const validators = [
-      (ctx) => true,
-      (ctx) => true,
-      (ctx) => true,
-      (ctx) => true,
-      (ctx) => true,
-      (ctx) => true,
-      (ctx) => ctx.rolledDices.includes(3), // three of a kind
-      (ctx) => ctx.rolledDices.includes(4), // four of a kind
-      (ctx) => ctx.rolledDices.includes(2) && ctx.rolledDices.includes(3), // two and three of a kind
-      (ctx) => ctx.longestNonZeroLength() >= 4, // small street
-      (ctx) => ctx.longestNonZeroLength() >= 5, // large street
-      (ctx) => ctx.rolledDices.includes(5),
-      (ctx) => true,
+      () => true,
+      () => true,
+      () => true,
+      () => true,
+      () => true,
+      () => true,
+      () => rolledDices.value.includes(3), // three of a kind
+      () => rolledDices.value.includes(4), // four of a kind
+      () => rolledDices.value.includes(2) && rolledDices.value.includes(3), // two and three of a kind
+      () => longestNonZeroLength() >= 4, // small street
+      () => longestNonZeroLength() >= 5, // large street
+      () => rolledDices.value.includes(5),
+      () => true,
     ]
 
     const rewards = [
-      (ctx) => ctx.rolledDices[0],
-      (ctx) => ctx.rolledDices[1] * 2,
-      (ctx) => ctx.rolledDices[2] * 3,
-      (ctx) => ctx.rolledDices[3] * 4,
-      (ctx) => ctx.rolledDices[4] * 5,
-      (ctx) => ctx.rolledDices[5] * 6,
-      (ctx) => ctx.rolledDiceSum,
-      (ctx) => ctx.rolledDiceSum,
-      (ctx) => 25,
-      (ctx) => 30,
-      (ctx) => 40,
-      (ctx) => 50,
-      (ctx) => ctx.rolledDiceSum
+      () => rolledDices.value[0],
+      () => rolledDices.value[1] * 2,
+      () => rolledDices.value[2] * 3,
+      () => rolledDices.value[3] * 4,
+      () => rolledDices.value[4] * 5,
+      () => rolledDices.value[5] * 6,
+      () => rolledDiceSum.value,
+      () => rolledDiceSum.value,
+      () => 25,
+      () => 30,
+      () => 40,
+      () => 50,
+      () => rolledDiceSum.value
     ]
 
     function longestNonZeroLength() {
       let max = 0;
       let cur = 0;
-      for (let i = 0; i <= this.rolledDices.length; i++) {
-        if (this.rolledDices[i] > 0) {
+      for (let i = 0; i <= rolledDices.value.length; i++) {
+        if (rolledDices.value[i] > 0) {
           cur += 1;
         } else {
           max = Math.max(cur, max);
@@ -60,69 +60,68 @@ export const useBoardStore = defineStore("boardStore", () => {
     }
 
     function addRolledDice(v) {
-      if (this.rolledDiceCount >= 5) {
-        return this.setError('Es sind bereits 5 Würfel gelegt worden');
+      if (rolledDiceCount.value >= 5) {
+        return setError('Es sind bereits 5 Würfel gelegt worden');
       }
 
-      this.rolledDices[v] += 1;
+      rolledDices.value[v] += 1;
     }
 
     function resetRolledDices() {
-      for (let i = 0; i < this.rolledDices.length; i++) {
-        this.rolledDices[i] = 0;
+      for (let i = 0; i < rolledDices.value.length; i++) {
+        rolledDices.value[i] = 0;
       }
     }
 
-    function setPoints(scoreIdx) {
-      if (this.points[scoreIdx] !== undefined) {
-        return this.setError(labels[this.currentLocale].alreadyChecked);
+    function setPoints(scoreIdx, noValidation = false) {
+      if (points.value[scoreIdx] !== null) {
+        return setError(labels[currentLocale.value].alreadyChecked);
       }
-      if (!this.validators[scoreIdx](this)) {
-        this.setError(labels[this.currentLocale].invalid[scoreIdx], true);
-        setTimeout(this.unsetError, 2500);
-        this.points[scoreIdx] = 0;
+      if (!validators[scoreIdx]() || noValidation) {
+        setError(labels[currentLocale.value].invalid[scoreIdx], true);
+        setTimeout(unsetError, 5000);
+        points.value[scoreIdx] = 0;
       } else {
-        this.points[scoreIdx] = this.rewards[scoreIdx](this);
+        points.value[scoreIdx] = rewards[scoreIdx]();
       }
 
-      this.resetRolledDices();
-      this.undoStack.push([scoreIdx, this.points[scoreIdx]]);
+      resetRolledDices();
+      undoStack.value.push([scoreIdx, points.value[scoreIdx]]);
     }
 
     function newGame() {
-      for (let i = 0; i < this.points.length; i++) {
-        this.points[i] = undefined;
+      for (let i = 0; i < points.value.length; i++) {
+        points.value[i] = null;
       }
-      this.resetRolledDices();
-      this.undoStack.length = 0;
+      resetRolledDices();
+      undoStack.value.length = 0;
     }
 
     function summarizePoints() {
-      console.log('summarize points');
-      let facePoints = this.points.slice(0, 6).reduce((s, p) => s + (p !== undefined ? p : 0), 0);
+      let facePoints = points.value.slice(0, 6).reduce((s, p) => s + (p !== null ? p : 0), 0);
       let extraFacePoints = facePoints >= 63 ? 35 : 0;
-      let combinationsPoints = this.points.slice(6).reduce((s, p) => s + (p !== undefined ? p : 0), 0)
+      let combinationsPoints = points.value.slice(6).reduce((s, p) => s + (p !== null ? p : 0), 0)
       return facePoints + ' + ' + (extraFacePoints ? extraFacePoints + ' + ' : '') +
         combinationsPoints + ' = ' + (facePoints + extraFacePoints + combinationsPoints);
     }
 
     function setError(msg, onlyWarning = false) {
-      this.currentError = msg;
-      this.currentErrorIsOnlyWarning = onlyWarning;
+      currentError.value = msg;
+      currentErrorIsOnlyWarning.value = onlyWarning;
     }
 
     function unsetError() {
-      this.currentError = undefined;
+      currentError.value = null;
     }
 
     function toggleLocale() {
-      this.currentLocale = (this.currentLocale === 'de' ? 'en' : 'de');
+      currentLocale.value = (currentLocale.value === 'de' ? 'en' : 'de');
     }
 
     function undo() {
-      if (this.undoStack.length > 0) {
-        let [scoreIdx, points] = this.undoStack.pop();
-        this.points[scoreIdx] = undefined;
+      if (undoStack.value.length > 0) {
+        let [scoreIdx, points] = undoStack.value.pop();
+        points.value[scoreIdx] = null;
       }
     }
 
