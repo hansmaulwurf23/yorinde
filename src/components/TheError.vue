@@ -5,7 +5,7 @@ const store = useBoardStore()
 </script>
 
 <template>
-  <div id="myErrorAlert" @click="store.unsetError()" class="position-absolute bottom-0 start-0 m-2"
+  <div id="myErrorAlert" @click="store.unsetError()" class="position-absolute bottom-0 start-0 w-100"
        :class="{'show': store.currentError, 'disnone': !store.currentError,
           'bg-danger': !store.currentErrorIsOnlyWarning,
           'bg-warning': store.currentErrorIsOnlyWarning}" role="alert">
