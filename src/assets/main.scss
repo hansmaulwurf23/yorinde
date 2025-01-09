@@ -2,22 +2,33 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 .squarebtn {
-    @extend .btn;
-    @extend .p-0;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    vertical-align: middle;
+  @extend .btn;
+  @extend .p-0;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
 }
 
 #myErrorAlert {
-    @extend .border;
-    @extend .text-white;
-    @extend .alert;
-    @extend .alert-dismissible;
-    @extend .fade;
+  @extend .border;
+  @extend .text-white;
+  @extend .alert;
+  @extend .alert-dismissible;
+  @extend .fade;
 
-    font-weight: bold;
+  font-weight: bold;
+}
+
+#diceInputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5rem;
+}
+
+#diceInputContainer div {
+  text-align: center;
 }

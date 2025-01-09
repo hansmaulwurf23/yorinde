@@ -10,22 +10,14 @@ const dices = [mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6];
   <div id="diceInputContainer" class="mt-2 mx-2">
     <div v-for="(v, i) in 6">
       <button class="squarebtn m-1"
-              @click="store.addRolledDice(i)">
+              @click="store.addRolledDice(v)">
         <svg-icon type="mdi" size="48" :path="dices[i]"></svg-icon>
       </button>
       <span class="badge fs-5 bg-light"
-            :class="[store.rolledDices[i] > 0 ? 'text-black' : 'text-secondary']">{{ store.rolledDices[i] }}</span>
+            :class="[store.rolledDiceCounter[i] > 0 ? 'text-black' : 'text-secondary']">{{ store.rolledDiceCounter[i] }}</span>
     </div>
   </div>
 </template>
 
 <style scoped>
-#diceInputContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-#diceInputContainer div {
-  text-align: center;
-}
 </style>
