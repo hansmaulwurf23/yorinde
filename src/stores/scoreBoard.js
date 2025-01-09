@@ -3,14 +3,22 @@ import {defineStore} from 'pinia'
 import labels from "@/labels.js";
 
 export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
-    const rolledDices = ref(new Array(6).fill(0))
+    const rolledDices = ref(new Array(5).fill(null))
+    const rolledDiceCounter = computed(() => {
+      let res = new Array(6).fill(0);
+      for (let i = 0; i < rolledDices.value.length; i++) {
+        res[rolledDices.value[i] - 1] += 1;
+      }
+      return res;
+    })
+    const rolledDiceCount = computed(() => rolledDices.value.filter(x => x !== null).length)
+    const rolledDiceSum = computed(() => rolledDices.value.reduce((s, v) => s + (v ? v : 0), 0))
     const points = ref(new Array(13).fill(null))
     const undoStack = ref([])
     const currentError = ref("")
     const currentErrorIsOnlyWarning = ref(false)
-    const rolledDiceCount = computed(() => rolledDices.value.reduce((s, dices) => s + dices, 0))
-    const rolledDiceSum = computed(() => rolledDices.value.reduce((s, dices, i) => s + (dices * (i + 1)), 0))
     const currentLocale = ref("de")
+    const rollingMode = ref(true)
 
     const validators = [
       () => true,
@@ -19,22 +27,22 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
       () => true,
       () => true,
       () => true,
-      () => rolledDices.value.includes(3), // three of a kind
-      () => rolledDices.value.includes(4), // four of a kind
-      () => rolledDices.value.includes(2) && rolledDices.value.includes(3), // two and three of a kind
+      () => rolledDiceCounter.value.includes(3), // three of a kind
+      () => rolledDiceCounter.value.includes(4), // four of a kind
+      () => rolledDiceCounter.value.includes(2) && rolledDiceCounter.value.includes(3), // two and three of a kind
       () => longestNonZeroLength() >= 4, // small street
       () => longestNonZeroLength() >= 5, // large street
-      () => rolledDices.value.includes(5),
+      () => rolledDiceCounter.value.includes(5),
       () => true,
     ]
 
     const rewards = [
-      () => rolledDices.value[0],
-      () => rolledDices.value[1] * 2,
-      () => rolledDices.value[2] * 3,
-      () => rolledDices.value[3] * 4,
-      () => rolledDices.value[4] * 5,
-      () => rolledDices.value[5] * 6,
+      () => rolledDiceCounter.value[0],
+      () => rolledDiceCounter.value[1] * 2,
+      () => rolledDiceCounter.value[2] * 3,
+      () => rolledDiceCounter.value[3] * 4,
+      () => rolledDiceCounter.value[4] * 5,
+      () => rolledDiceCounter.value[5] * 6,
       () => rolledDiceSum.value,
       () => rolledDiceSum.value,
       () => 25,
@@ -47,8 +55,8 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
     function longestNonZeroLength() {
       let max = 0;
       let cur = 0;
-      for (let i = 0; i <= rolledDices.value.length; i++) {
-        if (rolledDices.value[i] > 0) {
+      for (let i = 0; i <= rolledDiceCounter.value.length; i++) {
+        if (rolledDiceCounter.value[i] > 0) {
           cur += 1;
         } else {
           max = Math.max(cur, max);
@@ -60,16 +68,17 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
     }
 
     function addRolledDice(v) {
-      if (rolledDiceCount.value >= 5) {
+      let count = rolledDiceCount.value;
+      if (count >= 5) {
         return setError('Es sind bereits 5 Würfel gelegt worden');
       }
 
-      rolledDices.value[v] += 1;
+      rolledDices.value[count] = v;
     }
 
     function resetRolledDices() {
       for (let i = 0; i < rolledDices.value.length; i++) {
-        rolledDices.value[i] = 0;
+        rolledDices.value[i] = null;
       }
     }
 
@@ -126,9 +135,10 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
     }
 
     return {
-      rolledDices,
+      rolledDiceCounter,
       rolledDiceCount,
       rolledDiceSum,
+      rolledDices,
       points,
       undoStack,
       currentError,
@@ -136,6 +146,7 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
       currentLocale,
       validators,
       rewards,
+      rollingMode,
       addRolledDice,
       resetRolledDices,
       setPoints,
