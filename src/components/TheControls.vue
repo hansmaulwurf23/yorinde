@@ -1,11 +1,17 @@
 <script setup>
-import {mdiRestart, mdiUndo, mdiWeb, mdiHelpCircleOutline} from '@mdi/js'
+import {mdiRestart, mdiUndo, mdiWeb, mdiHelpCircleOutline, mdiDiceMultiple, mdiHandFrontRightOutline, mdiVacuum} from '@mdi/js'
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import SvgIcon from "vue3-icon"
 import labels from "../labels.js";
 import {ref} from "vue";
 const store = useBoardStore()
 const helpShown = ref(false)
+
+function clearStorage() {
+  if (confirm('Soll der lokale Speicher wirklich geleert werden?')) {
+    localStorage.clear();
+  }
+}
 </script>
 
 <template>
@@ -19,8 +25,14 @@ const helpShown = ref(false)
     <button class="squarebtn btn-light m-1" @click="store.toggleLocale()">
       <svg-icon type="mdi" :path="mdiWeb"></svg-icon>
     </button>
+    <button class="squarebtn btn-light m-1" @click="store.rollingMode = !store.rollingMode">
+      <svg-icon type="mdi" :path="store.rollingMode ? mdiHandFrontRightOutline : mdiDiceMultiple"></svg-icon>
+    </button>
     <button class="squarebtn btn-light m-1" @click="helpShown = true">
       <svg-icon type="mdi" :path="mdiHelpCircleOutline"></svg-icon>
+    </button>
+    <button class="squarebtn btn-light m-1" @click="clearStorage()">
+      <svg-icon type="mdi" :path="mdiVacuum"></svg-icon>
     </button>
   </div>
 
