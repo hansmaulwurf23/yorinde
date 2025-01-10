@@ -13,6 +13,7 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
     })
     const rolledDiceCount = computed(() => rolledDices.value.filter(x => x !== null).length)
     const rolledDiceSum = computed(() => rolledDices.value.reduce((s, v) => s + (v ? v : 0), 0))
+    const isFinished = computed(() => points.value.every(x => x !== null))
     const points = ref(new Array(13).fill(null))
     const undoStack = ref([])
     const currentError = ref("")
@@ -70,7 +71,7 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
     function addRolledDice(v) {
       let count = rolledDiceCount.value;
       if (count >= 5) {
-        return setError('Es sind bereits 5 Würfel gelegt worden');
+        return setError(labels[currentLocale.value].alreadyFiveDices);
       }
 
       rolledDices.value[count] = v;
@@ -94,8 +95,12 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
         points.value[scoreIdx] = rewards[scoreIdx]();
       }
 
+      undoStack.value.push([scoreIdx, Array.from(rolledDices.value)]);
       resetRolledDices();
-      undoStack.value.push([scoreIdx, points.value[scoreIdx]]);
+
+      if (isFinished.value) {
+        setError(labels[currentLocale.value].finished);
+      }
     }
 
     function newGame() {
@@ -129,8 +134,11 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
 
     function undo() {
       if (undoStack.value.length > 0) {
-        let [scoreIdx, score] = undoStack.value.pop();
+        let [scoreIdx, oldDices] = undoStack.value.pop();
         points.value[scoreIdx] = null;
+        for (let i = 0; i < rolledDices.value.length; i++) {
+          rolledDices.value[i] = oldDices[i];
+        }
       }
     }
 
@@ -147,6 +155,7 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
       validators,
       rewards,
       rollingMode,
+      isFinished,
       addRolledDice,
       resetRolledDices,
       setPoints,
