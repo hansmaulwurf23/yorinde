@@ -18,6 +18,7 @@ const labels = {
     'alreadyChecked': 'Bereits abgehakt!',
     'alreadyFiveDices': 'Es sind bereits 5 Würfel gelegt worden',
     'alreadyRolledThrice': 'Es wurde bereits drei mal gewürfelt!',
+    'finished': 'Das Spiel ist vorbei.',
     'help': 'Zum Spielen einfach die gewürfelten Augen oben anklicken und dann die Zeile anklicken, die dafür verwendet' +
       ' werden soll. Zum Streichen ebenfalls die Zeile anklicken, dann wird entsprechend 0 Punkte gesetzt und ein ' +
       'Hinweis angezeigt. Die Punkte von Full House, der kleinen und großen Straße und Kniffel betragen 25, 30, 40 und 50' +
@@ -44,6 +45,7 @@ const labels = {
     'alreadyChecked': 'Already Checked!',
     'alreadyFiveDices': 'There are already five dices thrown!',
     'alreadyRolledThrice': 'Dice have been thrown three times already!',
+    'finished': 'Game is finished.',
     'help': 'TODO. In the mean time use the german version.'
   }
 }
