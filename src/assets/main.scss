@@ -1,6 +1,11 @@
 @import './base.css';
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
+#app {
+  max-width: 400px;
+  margin: auto;
+}
+
 .squarebtn {
   @extend .btn;
   @extend .p-0;
