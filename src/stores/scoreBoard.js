@@ -129,7 +129,7 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
 
     function undo() {
       if (undoStack.value.length > 0) {
-        let [scoreIdx, points] = undoStack.value.pop();
+        let [scoreIdx, score] = undoStack.value.pop();
         points.value[scoreIdx] = null;
       }
     }
