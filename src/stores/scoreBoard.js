@@ -27,8 +27,8 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
       () => true,
       () => true,
       () => true,
-      () => rolledDiceCounter.value.includes(3), // three of a kind
-      () => rolledDiceCounter.value.includes(4), // four of a kind
+      () => rolledDiceCounter.value.some((x) => x >= 3), // three of a kind
+      () => rolledDiceCounter.value.some((x) => x >= 4), // four of a kind
       () => rolledDiceCounter.value.includes(2) && rolledDiceCounter.value.includes(3), // two and three of a kind
       () => longestNonZeroLength() >= 4, // small street
       () => longestNonZeroLength() >= 5, // large street
