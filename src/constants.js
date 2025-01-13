@@ -9,5 +9,5 @@ export const FOUR_OF_A_KIND =  7
 export const FULLHOUSE =       8
 export const SMALLSTR =        9
 export const LARGESTR =        10
-export const YAHTZEE =         11
-export const CHANCE =          12
+export const CHANCE =          11
+export const YAHTZEE =         12

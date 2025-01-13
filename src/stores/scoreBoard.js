@@ -33,8 +33,8 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
       () => rolledDiceCounter.value.includes(2) && rolledDiceCounter.value.includes(3), // two and three of a kind
       () => longestNonZeroLength() >= 4, // small street
       () => longestNonZeroLength() >= 5, // large street
-      () => rolledDiceCounter.value.includes(5),
       () => true,
+      () => rolledDiceCounter.value.includes(5),
     ]
 
     const rewards = [
@@ -49,8 +49,8 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
       () => 25,
       () => 30,
       () => 40,
+      () => rolledDiceSum.value,
       () => 50,
-      () => rolledDiceSum.value
     ]
 
     function longestNonZeroLength() {

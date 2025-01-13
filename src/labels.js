@@ -4,7 +4,7 @@ const labels = {
   'de': {
     'board': [
       'Einer', 'Zweier', 'Dreier', 'Vierer', 'Fünfer', 'Sechser', 'Dreierpasch', 'Viererpasch', 'Full House',
-      'Kleine Straße', 'Große Straße', 'Kniffel', 'Chance'
+      'Kleine Straße', 'Große Straße', 'Chance', 'Kniffel',
     ],
     'sum':'Summe',
     'invalid': {
@@ -31,7 +31,7 @@ const labels = {
   'en': {
     'board': [
       'Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes', 'Three Of A Kind', 'Four Of A Kind', 'Full House',
-      'Small Straight', 'Large Straight', 'Yahtzee', 'Chance'
+      'Small Straight', 'Large Straight', 'Chance', 'Yahtzee',
     ],
     'sum':'Sum',
     'invalid': {
