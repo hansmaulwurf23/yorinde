@@ -15,7 +15,7 @@ const store = useBoardStore()
     <div class="flexContainer">
     <div v-for="(v, i) in store.points" @click="store.setPoints(i)" @contextmenu="store.setPoints(i, true)"
         class="border border-dark rounded-2 m-1 p-1">
-        <div :class="store.points[i] !== null ? 'text-secondary': 'fw-bold'">
+        <div class="pnames" :class="store.points[i] !== null ? 'text-secondary': 'fw-bold'">
           {{ labels[store.currentLocale].board[i] }}
         </div>
         <div class="pvals bottom-100"
@@ -38,6 +38,12 @@ const store = useBoardStore()
   flex-grow: 1;
   width: 30%;
   height: 5rem;
+}
+
+.pnames {
+  text-wrap: nowrap;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .pvals {
