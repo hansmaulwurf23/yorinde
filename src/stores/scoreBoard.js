@@ -88,8 +88,6 @@ export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
         return setError(labels[currentLocale.value].alreadyChecked);
       }
       if (!validators[scoreIdx]() || noValidation) {
-        setError(labels[currentLocale.value].invalid[scoreIdx], true);
-        setTimeout(unsetError, 5000);
         points.value[scoreIdx] = 0;
       } else {
         points.value[scoreIdx] = rewards[scoreIdx]();
