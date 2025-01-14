@@ -2,36 +2,19 @@
 
 # Yorinde
 
-This template should help get you started developing with Vue 3 in Vite.
+A pwa page that resembles the score card of yahtzee enigmatically. The page further more has the ability 
+to roll the dices in a random fashion so that you could spent your time on the loo not only on 9gag.
 
-## Recommended IDE Setup
+One can see it in action [here](https://hansmaulwurf23.github.io/yorinde/).
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+This project is built with :heart: and
+- [vuejs](https://vuejs.org/)
+- [vite](https://vite.dev/)
+- [pinia](https://pinia.vuejs.org/)
+- [piniaPersistedState](https://prazdevs.github.io/pinia-plugin-persistedstate/)
+- [bootstrap](https://getbootstrap.com/)
+- [vue-icon](https://github.com/craigrileyuk/vue3-icon)
+- [mdi/js](https://github.com/Templarian/MaterialDesign-JS#readme)
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+This project is intended to ease learning vuejs and the aforementioned components / frameworks / plugins. 
+Any resemblance of existing games does not intend to break trademarks or copyrights.
