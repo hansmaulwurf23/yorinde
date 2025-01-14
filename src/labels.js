@@ -1,10 +1,10 @@
-import { THREE_OF_A_KIND, FOUR_OF_A_KIND, FULLHOUSE, SMALLSTR, LARGESTR, YAHTZEE } from './constants.js'
+import { THREE_OF_A_KIND, FOUR_OF_A_KIND, FULLHOUSE, SMALLSTR, LARGESTR, YORINDE } from './constants.js'
 
 const labels = {
   'de': {
     'board': [
       'Einer', 'Zweier', 'Dreier', 'Vierer', 'Fünfer', 'Sechser', 'Dreierpasch', 'Viererpasch', 'Full House',
-      'Kleine Straße', 'Große Straße', 'Chance', 'Kniffel',
+      'Kleine Straße', 'Große Straße', 'Chance', 'Yorinde',
     ],
     'sum':'Summe',
     'invalid': {
@@ -13,7 +13,7 @@ const labels = {
       [FULLHOUSE]: 'Keine zwei und drei Gleichen!',
       [SMALLSTR]: 'Keine kleine Strasse!',
       [LARGESTR]: 'Keine grosse Strasse!',
-      [YAHTZEE]: 'Keine fünf Gleichen!'
+      [YORINDE]: 'Keine fünf Gleichen!'
     },
     'alreadyChecked': 'Bereits abgehakt!',
     'alreadyFiveDices': 'Es sind bereits 5 Würfel gelegt worden',
@@ -21,7 +21,7 @@ const labels = {
     'finished': 'Das Spiel ist vorbei.',
     'help': 'Zum Spielen einfach die gewürfelten Augen oben anklicken und dann die Zeile anklicken, die dafür verwendet' +
       ' werden soll. Zum Streichen ebenfalls die Zeile anklicken, dann wird entsprechend 0 Punkte gesetzt und ein ' +
-      'Hinweis angezeigt. Die Punkte von Full House, der kleinen und großen Straße und Kniffel betragen 25, 30, 40 und 50' +
+      'Hinweis angezeigt. Die Punkte von Full House, der kleinen und großen Straße und Yorinde betragen 25, 30, 40 und 50' +
       ' Punkte. Für die Punkte für Einser bis ' +
       'Sechser müssen lediglich die entsprechenden Augen gesetzt sein und nicht ' +
       'der komplette Wurf. Bei allen anderen sollte der Teil des Wurfs gesetzt sein, der für die Punkte zählt. Verklickt' +
@@ -31,7 +31,7 @@ const labels = {
   'en': {
     'board': [
       'Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes', 'Three Of A Kind', 'Four Of A Kind', 'Full House',
-      'Small Straight', 'Large Straight', 'Chance', 'Yahtzee',
+      'Small Straight', 'Large Straight', 'Chance', 'Yorinde',
     ],
     'sum':'Sum',
     'invalid': {
@@ -40,7 +40,7 @@ const labels = {
       [FULLHOUSE]: 'Not two and three of a kind!',
       [SMALLSTR]: 'No small street!',
       [LARGESTR]: 'No large street!',
-      [YAHTZEE]: 'Not five of a kind!'
+      [YORINDE]: 'Not five of a kind!'
     },
     'alreadyChecked': 'Already Checked!',
     'alreadyFiveDices': 'There are already five dices thrown!',

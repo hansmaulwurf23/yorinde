@@ -10,4 +10,4 @@ export const FULLHOUSE =       8
 export const SMALLSTR =        9
 export const LARGESTR =        10
 export const CHANCE =          11
-export const YAHTZEE =         12
+export const YORINDE =         12

@@ -1,9 +1,9 @@
 {
   "name": "Kniffel Punktekarte",
-  "short_name": "kniffel",
+  "short_name": "yorinde",
   "description": "Eine Kniffel Punktekarte",
-  "id": "/kniffel/",
-  "start_url": "/kniffel/",
+  "id": "/yorinde/",
+  "start_url": "/yorinde/",
   "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",

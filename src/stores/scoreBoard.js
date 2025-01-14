@@ -2,7 +2,7 @@ import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import labels from "@/labels.js";
 
-export const useBoardStore = defineStore("yahtzeeBoardStore", () => {
+export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const rolledDices = ref(new Array(5).fill(null))
     const rolledDiceCounter = computed(() => {
       let res = new Array(6).fill(0);
