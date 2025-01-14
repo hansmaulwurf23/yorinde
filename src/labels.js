@@ -26,7 +26,8 @@ const labels = {
       'Sechser müssen lediglich die entsprechenden Augen gesetzt sein und nicht ' +
       'der komplette Wurf. Bei allen anderen sollte der Teil des Wurfs gesetzt sein, der für die Punkte zählt. Verklickt' +
       ' man sich, kann die Rückgängig-Funktion verwendet werden. Diese hebt die letzte Zeile wieder auf, dann können die ' +
-      'geworfenen Augen erneut gesetzt und die richtige Zeile verwendet werden.'
+      'geworfenen Augen erneut gesetzt und die richtige Zeile verwendet werden. Sollten Anzeigefehler auftreten, klicken ' +
+      'Sie bitte hier:'
   },
   'en': {
     'board': [

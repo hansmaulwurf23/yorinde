@@ -1,5 +1,6 @@
 <script setup>
-import {mdiRestart, mdiUndo, mdiWeb, mdiHelpCircleOutline, mdiDiceMultiple, mdiHandFrontRightOutline, mdiVacuum} from '@mdi/js'
+import {mdiRestart, mdiUndo, mdiWeb, mdiHelpCircleOutline, mdiDiceMultiple, mdiHandFrontRightOutline,
+  mdiVacuum, mdiToggleSwitchVariantOff} from '@mdi/js'
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import SvgIcon from "vue3-icon"
 import labels from "../labels.js";
@@ -15,24 +16,24 @@ function clearStorage() {
 </script>
 
 <template>
-  <div class="controlsContainer m-3">
-    <button class="squarebtn btn-light m-1" @click="store.newGame()">
-      <svg-icon type="mdi" :path="mdiRestart"></svg-icon>
+  <div class="controlsContainer mx-2 mt-2" :style="{order: store.controllsSwitched ? 1 : 3}">
+    <button class="squarebtn btn-light" @click="store.newGame()">
+      <svg-icon type="mdi" size="36" :path="mdiRestart"></svg-icon>
     </button>
-    <button class="squarebtn btn-light m-1" @click="store.undo()">
-      <svg-icon type="mdi" :path="mdiUndo"></svg-icon>
+    <button class="squarebtn btn-light" @click="store.undo()">
+      <svg-icon type="mdi" size="36" :path="mdiUndo"></svg-icon>
     </button>
-    <button class="squarebtn btn-light m-1" @click="store.toggleLocale()">
-      <svg-icon type="mdi" :path="mdiWeb"></svg-icon>
+    <button class="squarebtn btn-light" @click="store.toggleLocale()">
+      <svg-icon type="mdi" size="36" :path="mdiWeb"></svg-icon>
     </button>
-    <button class="squarebtn btn-light m-1" @click="store.rollingMode = !store.rollingMode">
-      <svg-icon type="mdi" :path="store.rollingMode ? mdiHandFrontRightOutline : mdiDiceMultiple"></svg-icon>
+    <button class="squarebtn btn-light" @click="store.rollingMode = !store.rollingMode">
+      <svg-icon type="mdi" size="36" :path="store.rollingMode ? mdiHandFrontRightOutline : mdiDiceMultiple"></svg-icon>
     </button>
-    <button class="squarebtn btn-light m-1" @click="helpShown = true">
-      <svg-icon type="mdi" :path="mdiHelpCircleOutline"></svg-icon>
+    <button class="squarebtn btn-light" @click="helpShown = true">
+      <svg-icon type="mdi" size="36" :path="mdiHelpCircleOutline"></svg-icon>
     </button>
-    <button class="squarebtn btn-light m-1" @click="clearStorage()">
-      <svg-icon type="mdi" :path="mdiVacuum"></svg-icon>
+    <button class="squarebtn btn-light" @click="store.controllsSwitched = !store.controllsSwitched">
+      <svg-icon type="mdi" size="36" :path="mdiToggleSwitchVariantOff" :style="{transform: store.controllsSwitched ? 'rotate(180deg)': 'rotate(0)'}"></svg-icon>
     </button>
   </div>
 
@@ -40,6 +41,9 @@ function clearStorage() {
        :class="{'disnone': !helpShown}">
     <svg-icon type="mdi" :path="mdiHelpCircleOutline" size="64"></svg-icon>
     <p class="mt-3">{{ labels[store.currentLocale].help }}</p>
+    <p><button class="squarebtn btn-light m-1" @click="clearStorage()">
+      <svg-icon type="mdi" :path="mdiVacuum"></svg-icon>
+    </button></p>
   </div>
 </template>
 
@@ -52,6 +56,7 @@ function clearStorage() {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 #helpBox {
