@@ -3,24 +3,38 @@ import {useBoardStore} from "@/stores/scoreBoard.js";
 import labels from "../labels.js";
 
 const store = useBoardStore()
+
+function numPips() {
+  return store.points.slice(0, 6).reduce((s, v) => s + v, 0)
+}
+
+function bonusPercentage() {
+  return numPips() / 63 * 100
+}
 </script>
 
 <template>
   <div class="m-3">
-    <div class="progress" role="progressbar" style="height: 2rem" :aria-valuenow="store.points.slice(0, 6).reduce((s, v) => s + v, 0)" aria-valuemin="0" aria-valuemax="63">
+<!--    <template v-if=""-->
+    <div class="progress" role="progressbar" style="height: 2rem"
+         :aria-valuenow="numPips()" aria-valuemin="0" aria-valuemax="63">
       <div class="progress-bar bg-success" style="opacity: .7"
-           :style="{width: (store.points.slice(0, 6).reduce((s, v) => s + v, 0)) / 63 * 100 + '%'}  "></div>
+           :style="{width: Math.min(100, bonusPercentage()) + '%'}  "></div>
     </div>
-      <div style="margin-top: -2rem; opacity: .9" class="fs-2 w-100 fw-bold text-center">Bonus: {{ store.points.slice(0, 6).reduce((s, v) => s + v, 0) }} / 63</div>
-    <div class="flexContainer">
-    <div v-for="(v, i) in store.points" @click="store.setPoints(i)" @contextmenu="store.setPoints(i, true)"
-        class="border border-dark rounded-2 m-1 p-1">
-        <div class="pnames" :class="store.points[i] !== null ? 'text-secondary': 'fw-bold'">
+    <div style="margin-top: -2rem; opacity: .9" class="fs-2 w-100 fw-bold text-center">Bonus:
+      {{ numPips() }} / 63
+    </div>
+    <div class="pointsContainer">
+      <div v-for="(v, i) in store.points" @click="store.setPoints(i)" @contextmenu="store.setPoints(i, true)"
+           class="border border-dark rounded-2 m-1 p-1">
+        <div class="pnames fw-bold" :class="store.points[i] === null ? 'text-secondary': ''">
           {{ labels[store.currentLocale].board[i] }}
         </div>
         <div class="pvals bottom-100"
-          :style="{ opacity: store.points[i] !== null ? 1 : .2}">{{ v !== null ? v : (store.validators[i]() ? store.rewards[i]() : 0) }}</div>
-    </div>
+             :style="{ opacity: store.points[i] !== null ? 1 : .2}">
+          {{ v !== null ? v : (store.validators[i]() ? store.rewards[i]() : 0) }}
+        </div>
+      </div>
     </div>
     <div class="fs-2">{{ labels[store.currentLocale].sum }}: <b>{{ store.summarizePoints() }}</b></div>
 
@@ -28,13 +42,13 @@ const store = useBoardStore()
 </template>
 
 <style scoped>
-.flexContainer {
+.pointsContainer {
   display: flex;
   flex-wrap: wrap;
 
 }
 
-.flexContainer>div {
+.pointsContainer > div {
   flex-grow: 1;
   width: 30%;
   height: 5rem;
@@ -43,7 +57,6 @@ const store = useBoardStore()
 .pnames {
   text-wrap: nowrap;
   overflow: hidden;
-  max-width: 100%;
 }
 
 .pvals {
