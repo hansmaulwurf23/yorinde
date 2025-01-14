@@ -61,7 +61,7 @@ function getRandoms(count) {
       </button>
     </div>
     <div>
-      <button class="squarebtn" @click="rollDices()">
+      <button class="squarebtn" @click="rollDices()" :disabled="rollCount >= 3">
         <svg-icon type="mdi" size="60" :path="mdiDiceMultiple"></svg-icon>
       </button>
     </div>
