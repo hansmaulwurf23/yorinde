@@ -1,28 +1,24 @@
 <script setup>
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import labels from "../labels.js";
+import {computed} from "vue";
 
 const store = useBoardStore()
 
-function numPips() {
-  return store.points.slice(0, 6).reduce((s, v) => s + v, 0)
-}
-
-function bonusPercentage() {
-  return numPips() / 63 * 100
-}
+const numPips = computed(() =>  store.points.slice(0, 6).reduce((s, v) => s + v, 0))
+const bonusPercentage = computed(() =>  numPips.value / 63 * 100)
 </script>
 
 <template>
   <div class="m-3">
 <!--    <template v-if=""-->
     <div class="progress" role="progressbar" style="height: 2rem"
-         :aria-valuenow="numPips()" aria-valuemin="0" aria-valuemax="63">
+         :aria-valuenow="numPips" aria-valuemin="0" aria-valuemax="63">
       <div class="progress-bar bg-success" style="opacity: .7"
-           :style="{width: Math.min(100, bonusPercentage()) + '%'}  "></div>
+           :style="{width: Math.min(100, bonusPercentage) + '%'}  "></div>
     </div>
     <div style="margin-top: -2rem; opacity: .9" class="fs-2 w-100 fw-bold text-center">Bonus:
-      {{ numPips() }} / 63
+      {{ numPips }} / 63
     </div>
     <div class="pointsContainer">
       <div v-for="(v, i) in store.points" @click="store.setPoints(i)" @contextmenu="store.setPoints(i, true)"

@@ -1,7 +1,7 @@
 {
-  "name": "Kniffel Punktekarte",
+  "name": "Yorinde Punktekarte",
   "short_name": "yorinde",
-  "description": "Eine Kniffel Punktekarte",
+  "description": "Eine Yorinde Punktekarte",
   "id": "/yorinde/",
   "start_url": "/yorinde/",
   "display": "fullscreen",
