@@ -12,12 +12,18 @@ const store = useBoardStore()
 <template>
   <main>
     <TheError />
-    <TheDiceInput v-if="!store.rollingMode" />
-    <TheRandomDiceInput v-if="store.rollingMode" />
-    <TheScoreCard />
-    <TheControls />
+    <div id="appContainer">
+      <TheDiceInput v-if="!store.rollingMode" />
+      <TheRandomDiceInput v-if="store.rollingMode" />
+      <TheScoreCard />
+      <TheControls />
+    </div>
   </main>
 </template>
 
 <style scoped>
+#appContainer {
+  display: flex;
+  flex-direction: column;
+}
 </style>

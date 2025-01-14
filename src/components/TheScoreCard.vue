@@ -7,32 +7,34 @@ const store = useBoardStore()
 
 const numPips = computed(() =>  store.points.slice(0, 6).reduce((s, v) => s + v, 0))
 const bonusPercentage = computed(() =>  numPips.value / 63 * 100)
+const msgs = computed(() => labels[store.currentLocale])
 </script>
 
 <template>
-  <div class="m-3">
-<!--    <template v-if=""-->
+  <div class="m-3" style="order: 2">
     <div class="progress" role="progressbar" style="height: 2rem"
          :aria-valuenow="numPips" aria-valuemin="0" aria-valuemax="63">
-      <div class="progress-bar bg-success" style="opacity: .7"
+      <div class="progress-bar bg-success opacity-75"
            :style="{width: Math.min(100, bonusPercentage) + '%'}  "></div>
+
+      <div style="position: absolute; margin-left: auto; left: 0; width: 100%; font-size: 1.35rem" class="opacity-75 fw-bold text-center">
+        Bonus: {{ numPips }} / 63
+      </div>
     </div>
-    <div style="margin-top: -2rem; opacity: .9" class="fs-2 w-100 fw-bold text-center">Bonus:
-      {{ numPips }} / 63
-    </div>
+
     <div class="pointsContainer">
       <div v-for="(v, i) in store.points" @click="store.setPoints(i)" @contextmenu="store.setPoints(i, true)"
            class="border border-dark rounded-2 m-1 p-1">
-        <div class="pnames fw-bold" :class="store.points[i] === null ? 'text-secondary': ''">
-          {{ labels[store.currentLocale].board[i] }}
+        <div class="pnames fw-bold" :class="store.points[i] === null ? 'opacity-25': ''">
+          {{ msgs.board[i] }}
         </div>
-        <div class="pvals bottom-100"
-             :style="{ opacity: store.points[i] !== null ? 1 : .2}">
+        <div class="pvals"
+             :class="store.points[i] !== null ? '' : 'opacity-25'">
           {{ v !== null ? v : (store.validators[i]() ? store.rewards[i]() : 0) }}
         </div>
       </div>
     </div>
-    <div class="fs-2">{{ labels[store.currentLocale].sum }}: <b>{{ store.summarizePoints() }}</b></div>
+    <div class="fs-2">{{ msgs.sum }}: <b>{{ store.summarizePoints() }}</b></div>
 
   </div>
 </template>
@@ -41,7 +43,7 @@ const bonusPercentage = computed(() =>  numPips.value / 63 * 100)
 .pointsContainer {
   display: flex;
   flex-wrap: wrap;
-
+  cursor: pointer;
 }
 
 .pointsContainer > div {

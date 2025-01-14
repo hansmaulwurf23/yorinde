@@ -20,6 +20,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const currentErrorIsOnlyWarning = ref(false)
     const currentLocale = ref("de")
     const rollingMode = ref(true)
+    const controllsSwitched = ref(true)
 
     const validators = [
       () => true,
@@ -134,8 +135,11 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       if (undoStack.value.length > 0) {
         let [scoreIdx, oldDices] = undoStack.value.pop();
         points.value[scoreIdx] = null;
-        for (let i = 0; i < rolledDices.value.length; i++) {
-          rolledDices.value[i] = oldDices[i];
+        // only reset the rolled dices if mode is not manually entering the dices
+        if (rollingMode.value) {
+          for (let i = 0; i < rolledDices.value.length; i++) {
+            rolledDices.value[i] = oldDices[i];
+          }
         }
       }
     }
@@ -153,6 +157,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       validators,
       rewards,
       rollingMode,
+      controllsSwitched,
       isFinished,
       addRolledDice,
       resetRolledDices,
