@@ -57,12 +57,12 @@ function getRandoms(count) {
     <div v-for="(v, i) in 5">
       <button class="squarebtn" :class="{'text-danger': fixedDices[i]}"
               @click="toggleDiceFixed(i)">
-        <svg-icon type="mdi" size="60" :path="diceIcons[store.rolledDices[i] != null ? store.rolledDices[i] : 1]"></svg-icon>
+        <svg-icon type="mdi" size="56" :path="diceIcons[store.rolledDices[i] != null ? store.rolledDices[i] : 1]"></svg-icon>
       </button>
     </div>
     <div>
       <button class="squarebtn" @click="rollDices()" :disabled="rollCount >= 3">
-        <svg-icon type="mdi" size="60" :path="mdiDiceMultiple"></svg-icon>
+        <svg-icon type="mdi" size="56" :path="mdiDiceMultiple"></svg-icon>
       </button>
     </div>
   </div>
