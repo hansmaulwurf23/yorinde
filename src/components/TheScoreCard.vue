@@ -24,7 +24,7 @@ const msgs = computed(() => labels[store.currentLocale])
 
     <div class="pointsContainer">
       <div v-for="(v, i) in store.points" @click="store.setPoints(i)" @contextmenu="store.setPoints(i, true)"
-           class="border border-dark rounded-2 m-1 p-1">
+           class="border border-dark rounded-2 m-1 p-1" :class="store.points[i] !== null ? 'pointContainer': ''">
         <div class="pnames fw-bold" :class="store.points[i] === null ? 'opacity-25': ''">
           {{ msgs.board[i] }}
         </div>
@@ -62,5 +62,21 @@ const msgs = computed(() => labels[store.currentLocale])
   font-weight: bold;
   font-size: 2.7rem;
   line-height: 3rem;
+}
+
+.pointContainer {
+  animation: growAndFade 1s ease;
+}
+
+@keyframes growAndFade {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 0, 0, 0); /* Kein Schatten am Anfang */
+  }
+  50% {
+    box-shadow: 0 0 25px rgb(25, 135, 84); /* Schatten wächst und wird etwas transparent */
+  }
+  100% {
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0); /* Schatten ist groß und komplett transparent */
+  }
 }
 </style>
