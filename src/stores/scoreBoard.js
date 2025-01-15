@@ -107,6 +107,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
         points.value[i] = null;
       }
       resetRolledDices();
+      unsetError();
       undoStack.value.length = 0;
     }
 

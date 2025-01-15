@@ -70,13 +70,13 @@ const msgs = computed(() => labels[store.currentLocale])
 
 @keyframes growAndFade {
   0% {
-    box-shadow: 0 0 0 rgba(255, 0, 0, 0); /* Kein Schatten am Anfang */
+    box-shadow: 0 0 0 rgba(25, 135, 84);
   }
   50% {
-    box-shadow: 0 0 25px rgb(25, 135, 84); /* Schatten wächst und wird etwas transparent */
+    box-shadow: 0 0 25px rgb(25, 135, 84);
   }
   100% {
-    box-shadow: 0 0 50px rgba(255, 0, 0, 0); /* Schatten ist groß und komplett transparent */
+    box-shadow: 0 0 50px rgba(25, 135, 84, 0);
   }
 }
 </style>

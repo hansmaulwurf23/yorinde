@@ -4,13 +4,16 @@ import {mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6, mdiDiceMulti
 import SvgIcon from "vue3-icon"
 import {ref, watch} from "vue";
 import labels from "@/labels.js";
+
 const diceIcons = [null, mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6];
 
 const store = useBoardStore()
 const fixedDices = ref(new Array(5).fill(false))
 const rollCount = ref(0)
 
-watch(store.points, () => { reset() })
+watch(store.points, () => {
+  reset()
+})
 
 function toggleDiceFixed(i) {
   fixedDices.value[i] = !fixedDices.value[i];
@@ -55,9 +58,10 @@ function getRandoms(count) {
 <template>
   <div id="diceInputContainer" class="mt-2 mx-2" :style="{order: store.controllsSwitched ? 3 : 1}">
     <div v-for="(v, i) in 5">
-      <button class="squarebtn" :class="{'text-danger': fixedDices[i]}"
+      <button class="squarebtn" :class="{'fixedDice': fixedDices[i]}"
               @click="toggleDiceFixed(i)">
-        <svg-icon type="mdi" size="56" :path="diceIcons[store.rolledDices[i] != null ? store.rolledDices[i] : 1]"></svg-icon>
+        <svg-icon type="mdi" size="56"
+                  :path="diceIcons[store.rolledDices[i] != null ? store.rolledDices[i] : 1]"></svg-icon>
       </button>
     </div>
     <div>
@@ -69,4 +73,20 @@ function getRandoms(count) {
 </template>
 
 <style scoped>
+.fixedDice {
+  color: rgb(220, 53, 69);
+  animation: growAndFade 1s ease;
+}
+
+@keyframes growAndFade {
+  0% {
+    box-shadow: 0 0 0 rgba(220, 53, 69);
+  }
+  50% {
+    box-shadow: 0 0 25px rgb(220, 53, 69);
+  }
+  100% {
+    box-shadow: 0 0 50px rgba(220, 53, 69, 0);
+  }
+}
 </style>
