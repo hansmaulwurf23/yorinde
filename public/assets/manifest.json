@@ -1,7 +1,7 @@
 {
-  "name": "Yorinde Punktekarte",
+  "name": "Yorinde",
   "short_name": "yorinde",
-  "description": "Eine Yorinde Punktekarte",
+  "description": "Mega hippes Yorinde Spiel",
   "id": "/yorinde/",
   "start_url": "/yorinde/",
   "display": "fullscreen",
