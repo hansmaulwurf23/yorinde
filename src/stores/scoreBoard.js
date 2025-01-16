@@ -84,11 +84,11 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       }
     }
 
-    function setPoints(scoreIdx, noValidation = false) {
+    function setPoints(scoreIdx) {
       if (points.value[scoreIdx] !== null) {
         return setError(labels[currentLocale.value].alreadyChecked);
       }
-      if (!validators[scoreIdx]() || noValidation) {
+      if (!validators[scoreIdx]()) {
         points.value[scoreIdx] = 0;
       } else {
         points.value[scoreIdx] = rewards[scoreIdx]();

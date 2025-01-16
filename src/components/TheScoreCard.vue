@@ -23,7 +23,7 @@ const msgs = computed(() => labels[store.currentLocale])
     </div>
 
     <div class="pointsContainer">
-      <div v-for="(v, i) in store.points" @click="store.setPoints(i)" @contextmenu="store.setPoints(i, true)"
+      <div v-for="(v, i) in store.points" @click="store.setPoints(i)"
            class="border border-dark rounded-2 m-1 p-1" :class="store.points[i] !== null ? 'pointContainer': ''">
         <div class="pnames fw-bold" :class="store.points[i] === null ? 'opacity-25': ''">
           {{ msgs.board[i] }}
