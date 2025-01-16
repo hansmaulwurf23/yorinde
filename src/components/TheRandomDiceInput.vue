@@ -65,7 +65,8 @@ function getRandoms(count) {
       </button>
     </div>
     <div>
-      <button class="squarebtn" @click="rollDices()" :disabled="rollCount >= 3">
+      <button class="squarebtn" @click="rollDices()" :disabled="rollCount >= 3" style="position: relative;">
+        <div class="rolllabel">{{ rollCount }}</div>
         <svg-icon type="mdi" size="56" :path="mdiDiceMultiple"></svg-icon>
       </button>
     </div>
@@ -73,9 +74,17 @@ function getRandoms(count) {
 </template>
 
 <style scoped>
+.rolllabel {
+  font-size: 1rem;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 .fixedDice {
   color: rgb(220, 53, 69);
-  animation: growAndFade 1s ease;
+  animation: growAndFade 0.5s ease;
 }
 
 @keyframes growAndFade {
