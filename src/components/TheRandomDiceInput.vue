@@ -84,18 +84,5 @@ function getRandoms(count) {
 
 .fixedDice {
   color: rgb(220, 53, 69);
-  animation: growAndFade 0.5s ease;
-}
-
-@keyframes growAndFade {
-  0% {
-    box-shadow: 0 0 0 rgba(220, 53, 69);
-  }
-  50% {
-    box-shadow: 0 0 25px rgb(220, 53, 69);
-  }
-  100% {
-    box-shadow: 0 0 50px rgba(220, 53, 69, 0);
-  }
 }
 </style>
