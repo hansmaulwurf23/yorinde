@@ -1,6 +1,6 @@
 <script setup>
 import {mdiRestart, mdiUndo, mdiWeb, mdiHelpCircleOutline, mdiDiceMultiple, mdiHandFrontRightOutline,
-  mdiVacuum, mdiToggleSwitchVariantOff} from '@mdi/js'
+  mdiVacuum, mdiToggleSwitchVariantOff, mdiCloseBoxOutline} from '@mdi/js'
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import SvgIcon from "vue3-icon"
 import labels from "../labels.js";
@@ -39,11 +39,16 @@ function clearStorage() {
 
   <div id="helpBox" class="card position-absolute p-3" @click="helpShown = false"
        :class="{'disnone': !helpShown}">
-    <svg-icon type="mdi" :path="mdiHelpCircleOutline" size="64"></svg-icon>
-    <p class="mt-3">{{ labels[store.currentLocale].help }}</p>
+    <h4>Hilfe</h4>
+    <svg-icon type="mdi" :path="mdiCloseBoxOutline" size="32" class="position-absolute" style="right: 10px"></svg-icon>
+    <p class="mt-3" style="max-height: 70%; overflow: scroll">{{ labels[store.currentLocale].help }}</p>
     <p><button class="squarebtn btn-light m-1" @click="clearStorage()">
       <svg-icon type="mdi" :path="mdiVacuum"></svg-icon>
     </button></p>
+    <div style="display: flex; flex-direction: row">
+      <label for="player" class="w-50">Spielername:</label>
+      <input id="player" class="w-50" v-model="store.playerName" type="text" placeholder="Player name" />
+    </div>
   </div>
 </template>
 

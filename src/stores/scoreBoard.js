@@ -21,6 +21,8 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const currentLocale = ref("de")
     const rollingMode = ref(true)
     const controllsSwitched = ref(true)
+    const playerName = ref("Player")
+    const highScore = ref([])
 
     const validators = [
       () => true,
@@ -98,8 +100,13 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       resetRolledDices();
 
       if (isFinished.value) {
+        storeHighscore();
         setError(labels[currentLocale.value].finished);
       }
+    }
+
+    function storeHighscore() {
+      highScore.value.push([new Date(), calcPoints()])
     }
 
     function newGame() {
@@ -111,10 +118,19 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       undoStack.value.length = 0;
     }
 
-    function summarizePoints() {
+    function calcPoints(split = true) {
       let facePoints = points.value.slice(0, 6).reduce((s, p) => s + (p !== null ? p : 0), 0);
       let extraFacePoints = facePoints >= 63 ? 35 : 0;
       let combinationsPoints = points.value.slice(6).reduce((s, p) => s + (p !== null ? p : 0), 0)
+      if (split) {
+        return [facePoints, extraFacePoints, combinationsPoints]
+      } else {
+        return facePoints + extraFacePoints + combinationsPoints;
+      }
+    }
+
+    function summarizePoints() {
+      let [facePoints, extraFacePoints, combinationsPoints] = calcPoints(true);
       return facePoints + ' + ' + (extraFacePoints ? extraFacePoints + ' + ' : '') +
         combinationsPoints + ' = ' + (facePoints + extraFacePoints + combinationsPoints);
     }
@@ -160,10 +176,13 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       rollingMode,
       controllsSwitched,
       isFinished,
+      highScore,
+      playerName,
       addRolledDice,
       resetRolledDices,
       setPoints,
       newGame,
+      calcPoints,
       summarizePoints,
       undo,
       setError,
