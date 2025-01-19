@@ -37,10 +37,10 @@ function clearStorage() {
     </button>
   </div>
 
-  <div id="helpBox" class="card position-absolute p-3" @click="helpShown = false"
+  <div id="helpBox" class="card position-absolute p-3"
        :class="{'disnone': !helpShown}">
     <h4>Hilfe</h4>
-    <svg-icon type="mdi" :path="mdiCloseBoxOutline" size="32" class="position-absolute" style="right: 10px"></svg-icon>
+    <svg-icon @click="helpShown = false" type="mdi" :path="mdiCloseBoxOutline" size="32" class="position-absolute" style="right: 10px"></svg-icon>
     <p class="mt-3" style="max-height: 70%; overflow: scroll">{{ labels[store.currentLocale].help }}</p>
     <p><button class="squarebtn btn-light m-1" @click="clearStorage()">
       <svg-icon type="mdi" :path="mdiVacuum"></svg-icon>
