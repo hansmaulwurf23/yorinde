@@ -1,6 +1,7 @@
 import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import labels from "@/labels.js";
+import {MAX_HIGHSCORE_ENTRIES} from "@/constants.js";
 
 export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const rolledDices = ref(new Array(5).fill(null))
@@ -100,15 +101,32 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       resetRolledDices();
 
       if (isFinished.value) {
-        storeHighscore();
-        setError(labels[currentLocale.value].finished);
+        let hsIdx = storeHighscore();
+        setError(labels[currentLocale.value].finished + (hsIdx !== -1 ? (' HighScore! (' + (hsIdx+1) + ')') : ''));
       }
     }
 
-    // FIXME this is really inefficient
+    function sum(...theArgs) {
+      let total = 0;
+      for (const arg of theArgs) {
+        total += arg;
+      }
+      return total;
+    }
+
     function storeHighscore() {
-      highScore.value.push([new Date(), calcPoints()])
-      highScore.value.sort((a, b) => (b[1][0] + b[1][1] + b[1][2]) - (a[1][0] + a[1][1] + a[1][2]))
+      // migration code (since highscores were not ordered and not capped to ten entries)
+      highScore.value.sort((a, b) => sum(...b[1]) - sum(...a[1]));
+      highScore.value.splice(MAX_HIGHSCORE_ENTRIES, Infinity)
+
+      let scores = calcPoints();
+      let p = sum(...scores);
+      let hsIdx = highScore.value.findIndex(x => sum(...x[1]) < p);
+      if (hsIdx !== -1) {
+        highScore.value.splice(hsIdx, 0, [new Date(), scores]);
+        highScore.value.splice(MAX_HIGHSCORE_ENTRIES, Infinity);
+      }
+      return hsIdx;
     }
 
     function newGame() {
@@ -120,19 +138,15 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       undoStack.value.length = 0;
     }
 
-    function calcPoints(split = true) {
+    function calcPoints() {
       let facePoints = points.value.slice(0, 6).reduce((s, p) => s + (p !== null ? p : 0), 0);
       let extraFacePoints = facePoints >= 63 ? 35 : 0;
       let combinationsPoints = points.value.slice(6).reduce((s, p) => s + (p !== null ? p : 0), 0)
-      if (split) {
-        return [facePoints, extraFacePoints, combinationsPoints]
-      } else {
-        return facePoints + extraFacePoints + combinationsPoints;
-      }
+      return [facePoints, extraFacePoints, combinationsPoints]
     }
 
     function summarizePoints() {
-      let [facePoints, extraFacePoints, combinationsPoints] = calcPoints(true);
+      let [facePoints, extraFacePoints, combinationsPoints] = calcPoints();
       return facePoints + ' + ' + (extraFacePoints ? extraFacePoints + ' + ' : '') +
         combinationsPoints + ' = ' + (facePoints + extraFacePoints + combinationsPoints);
     }

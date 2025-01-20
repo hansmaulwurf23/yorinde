@@ -11,3 +11,4 @@ export const SMALLSTR =        9
 export const LARGESTR =        10
 export const CHANCE =          11
 export const YORINDE =         12
+export const MAX_HIGHSCORE_ENTRIES = 15
