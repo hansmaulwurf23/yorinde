@@ -105,8 +105,10 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       }
     }
 
+    // FIXME this is really inefficient
     function storeHighscore() {
       highScore.value.push([new Date(), calcPoints()])
+      highScore.value.sort((a, b) => (b[1][0] + b[1][1] + b[1][2]) - (a[1][0] + a[1][1] + a[1][2]))
     }
 
     function newGame() {
