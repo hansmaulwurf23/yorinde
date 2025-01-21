@@ -125,6 +125,9 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       if (hsIdx !== -1) {
         highScore.value.splice(hsIdx, 0, [new Date(), scores]);
         highScore.value.splice(MAX_HIGHSCORE_ENTRIES, Infinity);
+      } else if (highScore.value.length < MAX_HIGHSCORE_ENTRIES) {
+        hsIdx = highScore.value.length;
+        highScore.value.push([new Date(), scores]);
       }
       return hsIdx;
     }
