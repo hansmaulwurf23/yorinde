@@ -67,12 +67,13 @@ function clearStorage() {
     <div style="max-height: 93%; overflow: scroll;">
     <table class="table table-sm table-striped">
       <tbody>
-      <tr v-for="([doa, [d, e, s]], i) in store.highScore">
+      <tr v-for="([doa, [dices, extra, specials]], index) in store.highScore">
+        <td>{{index+1}}</td>
         <td>{{new Intl.DateTimeFormat(store.currentLocale, dateFormat).format(new Date(doa))}}</td>
-        <td>{{d}}</td>
-        <td>{{e}}</td>
-        <td>{{s}}</td>
-        <td>{{d+e+s}}</td>
+        <td class="text-end">{{dices}}</td>
+        <td class="text-end">{{extra}}</td>
+        <td class="text-end">{{specials}}</td>
+        <td class="text-end">{{dices+extra+specials}}</td>
       </tr>
       </tbody>
     </table>
