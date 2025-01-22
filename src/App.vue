@@ -5,7 +5,12 @@ import TheError from "@/components/TheError.vue";
 import TheControls from "@/components/TheControls.vue";
 import TheRandomDiceInput from "@/components/TheRandomDiceInput.vue";
 import {useBoardStore} from "@/stores/scoreBoard.js";
+import TheHighScores from "@/components/TheHighScores.vue";
+import {ref} from "vue";
+import TheHelp from "@/components/TheHelp.vue";
 
+const highScoreVisible = ref(false)
+const helpVisible = ref(false)
 const store = useBoardStore()
 </script>
 
@@ -16,7 +21,9 @@ const store = useBoardStore()
       <TheDiceInput v-if="!store.rollingMode" />
       <TheRandomDiceInput v-if="store.rollingMode" />
       <TheScoreCard />
-      <TheControls />
+      <TheControls @show-highscore="highScoreVisible = true" @show-help="helpVisible = true" />
+      <TheHighScores v-if="highScoreVisible" @close="highScoreVisible = false" />
+      <TheHelp v-if="helpVisible" @close="helpVisible = false" />
     </div>
   </main>
 </template>

@@ -15,7 +15,4 @@ const store = useBoardStore()
 </template>
 
 <style scoped>
-.disnone {
-  display: none;
-}
 </style>
