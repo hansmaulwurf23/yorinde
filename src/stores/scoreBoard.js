@@ -22,6 +22,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const currentLocale = ref("de")
     const rollingMode = ref(true)
     const controllsSwitched = ref(true)
+    const extraPointsLeftMode = ref(false)
     const playerName = ref("Player")
     const highScore = ref([])
 
@@ -194,6 +195,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       rewards,
       rollingMode,
       controllsSwitched,
+      extraPointsLeftMode,
       isFinished,
       highScore,
       playerName,

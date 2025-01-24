@@ -17,8 +17,8 @@ const msgs = computed(() => labels[store.currentLocale])
       <div class="progress-bar bg-success opacity-75"
            :style="{width: Math.min(100, bonusPercentage) + '%'}  "></div>
 
-      <div style="position: absolute; margin-left: auto; left: 0; width: 100%; font-size: 1.35rem" class="opacity-75 fw-bold text-center">
-        Bonus: {{ numPips }} / 63
+      <div id="extraPointsProgContainer" @click="store.extraPointsLeftMode = !store.extraPointsLeftMode" class="opacity-75 fw-bold text-center">
+        Bonus: {{ store.extraPointsLeftMode ? (Math.min(0, numPips - 63)) : (numPips + ' / 63') }}
       </div>
     </div>
 
@@ -40,6 +40,14 @@ const msgs = computed(() => labels[store.currentLocale])
 </template>
 
 <style scoped>
+#extraPointsProgContainer {
+  position: absolute;
+  margin-left: auto;
+  left: 0;
+  width: 100%;
+  font-size: 1.35rem
+}
+
 .pointsContainer {
   display: flex;
   flex-wrap: wrap;
