@@ -2,6 +2,8 @@
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import labels from "../labels.js";
 import {computed} from "vue";
+import {mdiCircle} from "@mdi/js";
+import SvgIcon from "vue3-icon";
 
 const store = useBoardStore()
 
@@ -24,7 +26,8 @@ const msgs = computed(() => labels[store.currentLocale])
 
     <div class="pointsContainer">
       <div v-for="(v, i) in store.points" @click="store.setPoints(i)"
-           class="border border-dark rounded-2 m-1 p-1" :class="store.points[i] !== null ? 'pointContainer': ''">
+           class="border border-dark rounded-2 m-1 p-1" :class="store.points[i] !== null ? 'setPoint': ''">
+        <svg-icon type="mdi" class="avgIndicator" size="4" :path="mdiCircle" v-if="i <= 5 && v >= (i+1)*3"></svg-icon>
         <div class="pnames fw-bold" :class="store.points[i] === null ? 'opacity-25': ''">
           {{ msgs.board[i] }}
         </div>
@@ -40,6 +43,13 @@ const msgs = computed(() => labels[store.currentLocale])
 </template>
 
 <style scoped>
+.avgIndicator {
+  color: #198754;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
 #extraPointsProgContainer {
   position: absolute;
   margin-left: auto;
@@ -58,6 +68,7 @@ const msgs = computed(() => labels[store.currentLocale])
   flex-grow: 1;
   width: 30%;
   height: 5rem;
+  position: relative;
 }
 
 .pnames {
@@ -72,7 +83,7 @@ const msgs = computed(() => labels[store.currentLocale])
   line-height: 3rem;
 }
 
-.pointContainer {
+.setPoint {
   animation: growAndFade 1s ease;
 }
 
