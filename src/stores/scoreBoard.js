@@ -25,6 +25,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const extraPointsLeftMode = ref(false)
     const playerName = ref("Player")
     const highScore = ref([])
+    const valid4HighScore = ref(true)
 
     const validators = [
       () => true,
@@ -80,6 +81,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       }
 
       rolledDices.value[count] = v;
+      valid4HighScore.value = false;
     }
 
     function resetRolledDices() {
@@ -101,7 +103,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       undoStack.value.push([scoreIdx, Array.from(rolledDices.value)]);
       resetRolledDices();
 
-      if (isFinished.value) {
+      if (isFinished.value && valid4HighScore.value) {
         let hsIdx = storeHighscore();
         setError(labels[currentLocale.value].finished + (hsIdx !== -1 ? (' HighScore! (' + (hsIdx+1) + ')') : ''));
       }
@@ -140,6 +142,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       resetRolledDices();
       unsetError();
       undoStack.value.length = 0;
+      valid4HighScore.value = true;
     }
 
     function calcPoints() {
@@ -198,6 +201,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       extraPointsLeftMode,
       isFinished,
       highScore,
+      valid4HighScore,
       playerName,
       addRolledDice,
       resetRolledDices,
