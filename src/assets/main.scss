@@ -4,6 +4,16 @@
 #app {
   max-width: 400px;
   margin: auto;
+  height: 100vh;
+  background-color: var(--bs-body-bg);
+}
+
+.pointContainer {
+  @extend .border;
+  @extend .rounded-2;
+  @extend .m-1;
+  @extend .p-1;
+  border-color: #808080;
 }
 
 .squarebtn {

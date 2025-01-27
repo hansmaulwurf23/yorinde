@@ -19,14 +19,15 @@ const msgs = computed(() => labels[store.currentLocale])
       <div class="progress-bar bg-success opacity-75"
            :style="{width: Math.min(100, bonusPercentage) + '%'}  "></div>
 
-      <div id="extraPointsProgContainer" @click="store.extraPointsLeftMode = !store.extraPointsLeftMode" class="opacity-75 fw-bold text-center">
+      <div id="extraPointsProgContainer" @click="store.extraPointsLeftMode = !store.extraPointsLeftMode"
+           class="opacity-75 fw-bold text-center">
         Bonus: {{ store.extraPointsLeftMode ? (Math.min(0, numPips - 63)) : (numPips + ' / 63') }}
       </div>
     </div>
 
     <div class="pointsContainer">
       <div v-for="(v, i) in store.points" @click="store.setPoints(i)"
-           class="border border-dark rounded-2 m-1 p-1" :class="store.points[i] !== null ? 'setPoint': ''">
+           class="pointContainer" :class="store.points[i] !== null ? 'setPoint': ''">
         <svg-icon type="mdi" class="avgIndicator" size="4" :path="mdiCircle" v-if="i <= 5 && v >= (i+1)*3"></svg-icon>
         <div class="pnames fw-bold" :class="store.points[i] === null ? 'opacity-25': ''">
           {{ msgs.board[i] }}
@@ -37,7 +38,7 @@ const msgs = computed(() => labels[store.currentLocale])
         </div>
       </div>
     </div>
-    <div class="fs-2">{{ msgs.sum }}: <b>{{ store.summarizePoints() }}</b></div>
+    <div class="fs-2" @click="store.toggleDarkTheme()">{{ msgs.sum }}: <b>{{ store.summarizePoints() }}</b></div>
 
   </div>
 </template>

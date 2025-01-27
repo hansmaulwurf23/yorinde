@@ -12,6 +12,8 @@ import TheHelp from "@/components/TheHelp.vue";
 const highScoreVisible = ref(false)
 const helpVisible = ref(false)
 const store = useBoardStore()
+
+document.documentElement.setAttribute('data-bs-theme', store.darkTheme ? 'dark': 'light');
 </script>
 
 <template>

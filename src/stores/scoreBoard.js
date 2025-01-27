@@ -26,6 +26,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const playerName = ref("Player")
     const highScore = ref([])
     const valid4HighScore = ref(true)
+    const darkTheme = ref(false)
 
     const validators = [
       () => true,
@@ -171,6 +172,12 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       currentLocale.value = (currentLocale.value === 'de' ? 'en' : 'de');
     }
 
+    function toggleDarkTheme() {
+      console.log('toggle dark theme');
+      darkTheme.value = !darkTheme.value;
+      document.documentElement.setAttribute('data-bs-theme', darkTheme.value ? 'dark': 'light');
+    }
+
     function undo() {
       if (undoStack.value.length > 0) {
         let [scoreIdx, oldDices] = undoStack.value.pop();
@@ -202,6 +209,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       isFinished,
       highScore,
       valid4HighScore,
+      darkTheme,
       playerName,
       addRolledDice,
       resetRolledDices,
@@ -213,6 +221,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       setError,
       unsetError,
       toggleLocale,
+      toggleDarkTheme,
       longestNonZeroLength,
     }
   },
