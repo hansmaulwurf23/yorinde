@@ -1,7 +1,7 @@
 <script setup>
 import {
   mdiRestart, mdiUndo, mdiHelpCircleOutline, mdiDiceMultiple, mdiHandFrontRightOutline,
-  mdiToggleSwitchVariantOff, mdiPodium
+  mdiPodium, mdiCog
 } from '@mdi/js'
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import SvgIcon from "vue3-icon"
@@ -26,9 +26,8 @@ const store = useBoardStore()
     <button class="squarebtn" @click="$emit('showHelp')">
       <svg-icon type="mdi" size="36" :path="mdiHelpCircleOutline"></svg-icon>
     </button>
-    <button class="squarebtn" @click="store.controllsSwitched = !store.controllsSwitched">
-      <svg-icon type="mdi" size="36" :path="mdiToggleSwitchVariantOff"
-                :style="{transform: store.controllsSwitched ? 'rotate(180deg)': 'rotate(0)'}"></svg-icon>
+    <button class="squarebtn" @click="$emit('showSettings')">
+      <svg-icon type="mdi" size="36" :path="mdiCog"></svg-icon>
     </button>
   </div>
 </template>

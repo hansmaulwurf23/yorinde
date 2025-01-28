@@ -1,6 +1,6 @@
 <script setup>
 
-import {mdiCloseBoxOutline, mdiVacuum, mdiWeb} from "@mdi/js";
+import {mdiCloseBoxOutline, mdiVacuum} from "@mdi/js";
 import labels from "@/labels.js";
 import SvgIcon from "vue3-icon";
 import {useBoardStore} from "@/stores/scoreBoard.js";
@@ -26,13 +26,6 @@ function clearStorage() {
           <svg-icon type="mdi" :path="mdiVacuum"></svg-icon>
         </button>
       </p>
-    </div>
-    <button class="squarebtn btn-light" @click="store.toggleLocale()">
-      <svg-icon type="mdi" size="36" :path="mdiWeb"></svg-icon>
-    </button>
-    <div style="display: flex; flex-direction: row">
-      <label for="player" class="w-50">Spielername:</label>
-      <input id="player" class="w-50" v-model="store.playerName" type="text" placeholder="Player name"/>
     </div>
   </div>
 </template>
