@@ -3,8 +3,8 @@ import { THREE_OF_A_KIND, FOUR_OF_A_KIND, FULLHOUSE, SMALLSTR, LARGESTR, YORINDE
 const labels = {
   'de': {
     'board': [
-      'Einer', 'Zweier', 'Dreier', 'Vierer', 'Fünfer', 'Sechser', 'Dreierpasch', 'Viererpasch', 'Full House',
-      'Kleine Straße', 'Große Straße', 'Chance', 'Yorinde',
+      'Einer', 'Zweier', 'Dreier', 'Vierer', 'Fünfer', 'Sechser', 'Dreierpasch', 'Viererpasch', 'Chance', 'Full House',
+      'Kleine Straße', 'Große Straße', 'Yorinde',
     ],
     'sum':'Summe',
     'invalid': {
@@ -36,8 +36,8 @@ const labels = {
   },
   'en': {
     'board': [
-      'Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes', 'Three Of A Kind', 'Four Of A Kind', 'Full House',
-      'Small Straight', 'Large Straight', 'Chance', 'Yorinde',
+      'Aces', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes', 'Three Of A Kind', 'Four Of A Kind', 'Chance', 'Full House',
+      'Small Straight', 'Large Straight', 'Yorinde',
     ],
     'sum':'Sum',
     'invalid': {

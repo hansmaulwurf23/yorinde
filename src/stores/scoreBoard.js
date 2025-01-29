@@ -37,10 +37,10 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       () => true,
       () => rolledDiceCounter.value.some((x) => x >= 3), // three of a kind
       () => rolledDiceCounter.value.some((x) => x >= 4), // four of a kind
+      () => true,
       () => rolledDiceCounter.value.includes(2) && rolledDiceCounter.value.includes(3), // two and three of a kind
       () => longestNonZeroLength() >= 4, // small street
       () => longestNonZeroLength() >= 5, // large street
-      () => true,
       () => rolledDiceCounter.value.includes(5),
     ]
 
@@ -53,10 +53,10 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       () => rolledDiceCounter.value[5] * 6,
       () => rolledDiceSum.value,
       () => rolledDiceSum.value,
+      () => rolledDiceSum.value,
       () => 25,
       () => 30,
       () => 40,
-      () => rolledDiceSum.value,
       () => 50,
     ]
 
