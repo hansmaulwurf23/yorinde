@@ -1,6 +1,6 @@
 <script setup>
 
-import {mdiCloseBoxOutline, mdiThemeLightDark, mdiToggleSwitchVariantOff, mdiWeb} from "@mdi/js";
+import {mdiCloseBoxOutline, mdiPlusMinusVariant, mdiThemeLightDark, mdiToggleSwitchVariantOff, mdiWeb} from "@mdi/js";
 import SvgIcon from "vue3-icon";
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import {computed} from "vue";
@@ -32,6 +32,12 @@ const msgs = computed(() => labels[store.currentLocale])
                   :style="{transform: store.controllsSwitched ? 'rotate(180deg)': 'rotate(0)'}"></svg-icon>
       </button>
       <div>{{ msgs.toolbarPosition }}</div>
+    </div>
+    <div class="settingsRow">
+      <button class="squarebtn" @click="store.extraPointsLeftMode = !store.extraPointsLeftMode">
+        <svg-icon type="mdi" size="36" :path="mdiPlusMinusVariant"></svg-icon>
+      </button>
+        <div>Bonus Points Mode</div>
     </div>
     <div class="settingsRow">
       <button class="squarebtn" @click="store.toggleDarkTheme()">
