@@ -39,5 +39,6 @@ const store = useBoardStore()
   left: 1rem;
   right: 1rem;
   bottom: 1rem;
+  z-index: 2;
 }
 </style>
