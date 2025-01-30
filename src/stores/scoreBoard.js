@@ -27,6 +27,8 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const highScore = ref([])
     const valid4HighScore = ref(true)
     const darkTheme = ref(false)
+    const allTimeCounter = ref(0)
+    const allTimeSum = ref(0)
 
     const validators = [
       () => true,
@@ -105,6 +107,8 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       resetRolledDices();
 
       if (isFinished.value && valid4HighScore.value) {
+        allTimeCounter.value += 1;
+        allTimeSum.value += sum(...calcPoints());
         let hsIdx = storeHighscore();
         setError(labels[currentLocale.value].finished + (hsIdx !== -1 ? (' HighScore! (' + (hsIdx+1) + ')') : ''));
       }
@@ -208,6 +212,8 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       extraPointsLeftMode,
       isFinished,
       highScore,
+      allTimeCounter,
+      allTimeSum,
       valid4HighScore,
       darkTheme,
       playerName,
