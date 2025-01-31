@@ -30,6 +30,9 @@ const store = useBoardStore()
         </tbody>
       </table>
     </div>
+    <div>
+      &empty; <b>{{ Math.round(10.0 * store.allTimeSum / store.allTimeCounter) / 10 }}</b> in <b>{{ store.allTimeCounter }}</b>
+    </div>
   </div>
 </template>
 
