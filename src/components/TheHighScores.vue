@@ -12,7 +12,7 @@ const store = useBoardStore()
 </script>
 
 <template>
-  <div id="highscoreBox" class="card position-absolute p-3">
+  <div id="highscoreBox" class="overlayContainer">
     <h4>High Scores</h4>
     <svg-icon @click="$emit('close')" type="mdi" :path="mdiCloseBoxOutline" size="32" class="position-absolute"
               style="right: 10px"></svg-icon>
@@ -37,11 +37,4 @@ const store = useBoardStore()
 </template>
 
 <style scoped>
-#highscoreBox {
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 2;
-}
 </style>

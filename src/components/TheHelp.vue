@@ -15,11 +15,11 @@ function clearStorage() {
 </script>
 
 <template>
-  <div id="helpBox" class="card position-absolute p-3">
+  <div id="helpBox" class="overlayContainer">
     <h4>{{ labels[store.currentLocale].help }}</h4>
     <svg-icon @click="$emit('close')" type="mdi" :path="mdiCloseBoxOutline" size="32" class="position-absolute"
               style="right: 10px"></svg-icon>
-    <div style="max-height: 80%; overflow: scroll;">
+    <div style="max-height: 92%; overflow: scroll;">
       <p class="mt-3">{{ labels[store.currentLocale].helpText }}</p>
       <p>
         <button class="squarebtn btn-light m-1" @click="clearStorage()">
@@ -31,10 +31,4 @@ function clearStorage() {
 </template>
 
 <style scoped>
-#helpBox {
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-}
 </style>

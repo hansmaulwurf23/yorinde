@@ -8,6 +8,17 @@
   background-color: var(--bs-body-bg);
 }
 
+.overlayContainer {
+  @extend .card;
+  @extend .p-3;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+}
+
 .pointContainer {
   @extend .border;
   @extend .rounded-2;

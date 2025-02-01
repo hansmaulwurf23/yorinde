@@ -11,7 +11,7 @@ const msgs = computed(() => labels[store.currentLocale])
 </script>
 
 <template>
-  <div id="settingsContainer" class="card position-absolute p-3">
+  <div id="settingsContainer" class="overlayContainer">
     <h4 class="mb-4">{{ msgs.settings }}</h4>
     <svg-icon @click="$emit('close')" type="mdi" :path="mdiCloseBoxOutline" size="32" class="position-absolute"
               style="right: 10px"></svg-icon>
@@ -49,13 +49,6 @@ const msgs = computed(() => labels[store.currentLocale])
 </template>
 
 <style scoped>
-#settingsContainer {
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-}
-
 .settingsRow {
   display: flex;
   flex-direction: row;
