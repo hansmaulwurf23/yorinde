@@ -11,4 +11,5 @@ export const FULLHOUSE =       9
 export const SMALLSTR =        10
 export const LARGESTR =        11
 export const YORINDE =         12
+export const ATS_COUNTER =     13
 export const MAX_HIGHSCORE_ENTRIES = 15

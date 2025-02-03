@@ -1,7 +1,18 @@
 import {ref, computed} from 'vue'
 import {defineStore} from 'pinia'
 import labels from "@/labels.js";
-import {MAX_HIGHSCORE_ENTRIES} from "@/constants.js";
+import {
+  ATS_COUNTER,
+  CHANCE,
+  FOUR_OF_A_KIND,
+  FULLHOUSE,
+  LARGESTR,
+  MAX_HIGHSCORE_ENTRIES,
+  SMALLSTR,
+  THREE_OF_A_KIND,
+  THREES,
+  YORINDE
+} from "@/constants.js";
 
 export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const rolledDices = ref(new Array(5).fill(null))
@@ -29,6 +40,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const darkTheme = ref(false)
     const allTimeCounter = ref(0)
     const allTimeSum = ref(0)
+    const allTimeStats = ref(new Array(14).fill(0))
 
     const validators = [
       () => true,
@@ -107,11 +119,38 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       resetRolledDices();
 
       if (isFinished.value && valid4HighScore.value) {
-        allTimeCounter.value += 1;
-        allTimeSum.value += sum(...calcPoints());
+        storeStats()
         let hsIdx = storeHighscore();
         setError(labels[currentLocale.value].finished + (hsIdx !== -1 ? (' HighScore! (' + (hsIdx+1) + ')') : ''));
       }
+    }
+
+    function storeStats() {
+      allTimeCounter.value += 1;
+      allTimeSum.value += sum(...calcPoints());
+
+      // reset all time stats if no chance was stored (must be an error)
+      if (allTimeStats.value[ATS_COUNTER] === 0) {
+        allTimeStats.value.fill(0);
+      }
+
+      // store single dice face counter
+      for (let i = 0; i < 6; i++) {
+        allTimeStats.value[i] += (points.value[i] / (i+1));
+      }
+
+      // store sum of points of variable reward specials
+      for (const special of [THREE_OF_A_KIND, FOUR_OF_A_KIND, CHANCE]) {
+        allTimeStats.value[special] += points.value[special];
+      }
+
+      // store count of fixed reward specials
+      for (const special of [FULLHOUSE, SMALLSTR, LARGESTR, YORINDE]) {
+        allTimeStats.value[special] += (points.value[special] > 0 ? 1 : 0);
+      }
+
+      // store dedicated counter of all time stats since this was introduced later than allTimeCounter
+      allTimeStats.value[ATS_COUNTER] += 1;
     }
 
     function sum(...theArgs) {
@@ -214,6 +253,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       highScore,
       allTimeCounter,
       allTimeSum,
+      allTimeStats,
       valid4HighScore,
       darkTheme,
       playerName,
