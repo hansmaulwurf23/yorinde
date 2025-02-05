@@ -1,7 +1,21 @@
 <script setup>
 import {useBoardStore} from "@/stores/scoreBoard.js";
-import {mdiCloseBoxOutline} from "@mdi/js";
+import {mdiCloseBoxOutline, mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6} from "@mdi/js";
 import SvgIcon from "vue3-icon";
+import {
+  ATS_COUNTER,
+  CHANCE,
+  FOUR_OF_A_KIND,
+  FULLHOUSE,
+  LARGESTR,
+  SMALLSTR,
+  THREE_OF_A_KIND,
+  YORINDE
+} from "@/constants.js";
+import {computed} from "vue";
+import labels from "@/labels.js";
+
+const dices = [mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6];
 
 const dateFormat = {
   year: "numeric",
@@ -9,6 +23,11 @@ const dateFormat = {
   day: "2-digit",
 }
 const store = useBoardStore()
+const msgs = computed(() => labels[store.currentLocale])
+
+function ats_percentage(idx) {
+  return Math.round(10.0 * store.allTimeStats[idx] / store.allTimeStats[ATS_COUNTER] * 100) / 10
+}
 </script>
 
 <template>
@@ -16,7 +35,7 @@ const store = useBoardStore()
     <h4>High Scores</h4>
     <svg-icon @click="$emit('close')" type="mdi" :path="mdiCloseBoxOutline" size="32" class="position-absolute"
               style="right: 10px"></svg-icon>
-    <div style="max-height: 93%; overflow: scroll;">
+    <div>
       <table class="table table-sm table-striped">
         <tbody>
         <tr v-for="([doa, [dices, extra, specials]], index) in store.highScore">
@@ -31,10 +50,50 @@ const store = useBoardStore()
       </table>
     </div>
     <div>
-      &empty; <b>{{ Math.round(10.0 * store.allTimeSum / store.allTimeCounter) / 10 }}</b> in <b>{{ store.allTimeCounter }}</b>
+      &empty; <b>{{ Math.round(10.0 * store.allTimeSum / store.allTimeCounter) / 10 }}</b> in
+      <b>{{ store.allTimeCounter }} ({{store.allTimeStats[ATS_COUNTER]}})</b>
+    </div>
+    <div id="allTimeStatsContantainer">
+      <div class="sixy" v-for="(val, idx) in 6">
+        <svg-icon type="mdi" size="48" :path="dices[idx]"></svg-icon>
+        {{ Math.round(10.0 * store.allTimeStats[idx] / store.allTimeStats[ATS_COUNTER]) / 10 }}
+      </div>
+    </div>
+    <div>
+      <table class="table table-sm table-striped allTimeStatsTable">
+        <tr v-for="special in [THREE_OF_A_KIND, FOUR_OF_A_KIND, CHANCE]">
+          <td>{{ msgs.board[special] }}</td>
+          <td>{{ Math.round(10.0 * store.allTimeStats[special] / store.allTimeStats[ATS_COUNTER]) / 10 }}</td>
+        </tr>
+        <tr v-for="special in [FULLHOUSE, SMALLSTR, LARGESTR, YORINDE]">
+          <td>{{ msgs.board[special] }}</td>
+          <td><div class="progress" role="progressbar">
+              <div class="progress-bar bg-success" :style="{width: ats_percentage(special)+'%'}">{{ ats_percentage(special) }}%</div>
+              </div>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
 
 <style scoped>
+#allTimeStatsContantainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sixy {
+  width: 15%;
+  text-align: center;
+}
+
+.allTimeStatsTable tr td:nth-child(1) {
+  width: 40%;
+}
+
+.allTimeStatsTable .progress {
+  padding: 0;
+}
 </style>
