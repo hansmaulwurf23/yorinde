@@ -223,6 +223,11 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
 
     function undo() {
       if (undoStack.value.length > 0) {
+        if (rollingMode.value && rolledDices.value[0] != null) {
+          setError(labels[currentLocale.value].alreadyRolledDicesNoUndo);
+          return false;
+        }
+
         let [scoreIdx, oldDices] = undoStack.value.pop();
         points.value[scoreIdx] = null;
         // only reset the rolled dices if mode is not manually entering the dices
