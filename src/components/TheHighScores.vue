@@ -14,6 +14,7 @@ import {
 } from "@/constants.js";
 import {computed} from "vue";
 import labels from "@/labels.js";
+import TheProgressBar from "@/components/TheProgressBar.vue";
 
 const dices = [mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6];
 
@@ -24,10 +25,6 @@ const dateFormat = {
 }
 const store = useBoardStore()
 const msgs = computed(() => labels[store.currentLocale])
-
-function ats_percentage(idx) {
-  return Math.round(10.0 * store.allTimeStats[idx] / store.allTimeStats[ATS_COUNTER] * 100) / 10
-}
 </script>
 
 <template>
@@ -67,9 +64,7 @@ function ats_percentage(idx) {
         </tr>
         <tr v-for="special in [FULLHOUSE, SMALLSTR, LARGESTR, YORINDE]">
           <td>{{ msgs.board[special] }}</td>
-          <td><div class="progress" role="progressbar">
-              <div class="progress-bar bg-success" :style="{width: ats_percentage(special)+'%'}">{{ ats_percentage(special) }}%</div>
-              </div>
+          <td><TheProgressBar :max-value="100" :value="Math.round(10.0 * store.allTimeStats[special] / store.allTimeStats[ATS_COUNTER] * 100) / 10" />
           </td>
         </tr>
       </table>
