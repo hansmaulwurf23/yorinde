@@ -10,7 +10,6 @@ import {
   MAX_HIGHSCORE_ENTRIES,
   SMALLSTR,
   THREE_OF_A_KIND,
-  THREES,
   YORINDE
 } from "@/constants.js";
 
@@ -32,6 +31,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const currentErrorIsOnlyWarning = ref(false)
     const currentLocale = ref("de")
     const rollingMode = ref(true)
+    const undoMode = ref(false)
     const controllsSwitched = ref(true)
     const extraPointsLeftMode = ref(false)
     const playerName = ref("Player")
@@ -103,6 +103,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       for (let i = 0; i < rolledDices.value.length; i++) {
         rolledDices.value[i] = null;
       }
+      undoMode.value = false;
     }
 
     function setPoints(scoreIdx) {
@@ -230,6 +231,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
 
         let [scoreIdx, oldDices] = undoStack.value.pop();
         points.value[scoreIdx] = null;
+        undoMode.value = true;
         // only reset the rolled dices if mode is not manually entering the dices
         if (rollingMode.value) {
           for (let i = 0; i < rolledDices.value.length; i++) {
@@ -252,6 +254,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       validators,
       rewards,
       rollingMode,
+      undoMode,
       controllsSwitched,
       extraPointsLeftMode,
       isFinished,

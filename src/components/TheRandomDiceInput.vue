@@ -57,16 +57,16 @@ function getRandoms(count) {
 
 <template>
   <div id="diceInputContainer" class="mt-2 mx-2" :style="{order: store.controllsSwitched ? 3 : 1}">
-    <div v-for="(v, i) in 5">
+    <div v-for="(v, i) in store.rolledDices">
       <button class="squarebtn" :class="{'fixedDice': fixedDices[i]}"
               @click="toggleDiceFixed(i)">
         <svg-icon type="mdi" size="56"
-                  :path="diceIcons[store.rolledDices[i] != null ? store.rolledDices[i] : 1]"></svg-icon>
+                  :path="diceIcons[v != null ? v : 1]"></svg-icon>
       </button>
     </div>
     <div>
-      <button class="squarebtn" @click="rollDices()" :disabled="rollCount >= 3" style="position: relative;">
-        <div class="rolllabel">{{ rollCount }}</div>
+      <button class="squarebtn" @click="rollDices()" :disabled="rollCount >= 3 || store.undoMode" style="position: relative;">
+        <span class="rolllabel">{{ rollCount }}</span>
         <svg-icon type="mdi" size="56" :path="mdiDiceMultiple"></svg-icon>
       </button>
     </div>

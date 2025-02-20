@@ -14,7 +14,7 @@ const store = useBoardStore()
     <button class="squarebtn" @click="store.newGame()">
       <svg-icon type="mdi" size="36" :path="mdiRestart"></svg-icon>
     </button>
-    <button class="squarebtn" @click="store.undo()" :disabled="store.rollingMode">
+    <button class="squarebtn" @click="store.undo()">
       <svg-icon type="mdi" size="36" :path="mdiUndo"></svg-icon>
     </button>
     <button class="squarebtn" @click="$emit('showHighscore')">
