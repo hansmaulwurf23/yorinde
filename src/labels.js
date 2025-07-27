@@ -1,6 +1,12 @@
 import { THREE_OF_A_KIND, FOUR_OF_A_KIND, FULLHOUSE, SMALLSTR, LARGESTR, YORINDE } from './constants.js'
 
 const labels = {
+  'intl': {
+    'board': [
+      null, null, null, null, null, null, '3', '4', null, '3+2', null, null, '5'
+    ],
+    'sum': 'Summe',
+  },
   'de': {
     'board': [
       'Einer', 'Zweier', 'Dreier', 'Vierer', 'Fünfer', 'Sechser', 'Dreierpasch', 'Viererpasch', 'Chance', 'Full House',

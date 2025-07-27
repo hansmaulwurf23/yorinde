@@ -2,14 +2,16 @@
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import labels from "../labels.js";
 import {computed} from "vue";
-import {mdiCircle} from "@mdi/js";
+import {mdiCircle, mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6, mdiDiceMultiple} from "@mdi/js";
 import SvgIcon from "vue3-icon";
+import {CHANCE, LARGESTR, SMALLSTR} from "@/constants.js";
 
 const store = useBoardStore()
 
 const numPips = computed(() =>  store.points.slice(0, 6).reduce((s, v) => s + v, 0))
 const bonusPercentage = computed(() =>  numPips.value / 63 * 100)
-const msgs = computed(() => labels[store.currentLocale])
+const msgs = computed(() => store.kidsMode ? labels.intl : labels[store.currentLocale])
+const diceIcons = [null, mdiDice1, mdiDice2, mdiDice3, mdiDice4, mdiDice5, mdiDice6];
 </script>
 
 <template>
@@ -30,7 +32,30 @@ const msgs = computed(() => labels[store.currentLocale])
            class="pointContainer" :class="store.points[i] !== null ? 'setPoint': ''">
         <svg-icon type="mdi" class="avgIndicator" size="4" :path="mdiCircle" v-if="i <= 5 && v >= (i+1)*3"></svg-icon>
         <div class="pnames fw-bold" :class="store.points[i] === null ? 'opacity-25': ''">
-          {{ msgs.board[i] }}
+          <template v-if="msgs.board[i]">
+            {{ msgs.board[i] }}
+          </template>
+          <template v-else-if="i < 7">
+            <svg-icon type="mdi" size="24" :path="diceIcons[i+1]"></svg-icon>
+          </template>
+          <template v-else-if="i === CHANCE">
+            <svg-icon type="mdi" size="24" :path="mdiDiceMultiple"></svg-icon>
+          </template>
+          <template v-else-if="i === SMALLSTR">
+            <svg-icon type="mdi" size="24" :path="mdiDice1"></svg-icon>
+            <svg-icon type="mdi" size="24" :path="mdiDice2"></svg-icon>
+            <svg-icon type="mdi" size="24" :path="mdiDice3"></svg-icon>
+            <svg-icon type="mdi" size="24" :path="mdiDice4"></svg-icon>
+          </template>
+          <template v-else-if="i === LARGESTR">
+            <svg-icon type="mdi" size="24" style="padding-left: -5px" :path="mdiDice1"></svg-icon>
+            <svg-icon type="mdi" size="24" :path="mdiDice2"></svg-icon>
+            <svg-icon type="mdi" size="24" :path="mdiDice3"></svg-icon>
+            <svg-icon type="mdi" size="24" :path="mdiDice4"></svg-icon>
+            <svg-icon type="mdi" size="24" :path="mdiDice5"></svg-icon>
+          </template>
+
+
         </div>
         <div class="pvals"
              :class="store.points[i] !== null ? '' : 'opacity-25'">

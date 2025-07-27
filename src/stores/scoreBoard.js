@@ -38,6 +38,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
     const highScore = ref([])
     const valid4HighScore = ref(true)
     const darkTheme = ref(false)
+    const kidsMode = ref(false)
     const allTimeCounter = ref(0)
     const allTimeSum = ref(0)
     const allTimeStats = ref(new Array(14).fill(0))
@@ -216,6 +217,10 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       currentLocale.value = (currentLocale.value === 'de' ? 'en' : 'de');
     }
 
+    function toggleKidsMode() {
+      kidsMode.value = !kidsMode.value;
+    }
+
     function toggleDarkTheme() {
       console.log('toggle dark theme');
       darkTheme.value = !darkTheme.value;
@@ -264,6 +269,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       allTimeStats,
       valid4HighScore,
       darkTheme,
+      kidsMode,
       playerName,
       addRolledDice,
       resetRolledDices,
@@ -275,6 +281,7 @@ export const useBoardStore = defineStore("yorindeBoardStore", () => {
       setError,
       unsetError,
       toggleLocale,
+      toggleKidsMode,
       toggleDarkTheme,
       longestNonZeroLength,
     }

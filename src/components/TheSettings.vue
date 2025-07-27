@@ -1,6 +1,6 @@
 <script setup>
 
-import {mdiCloseBoxOutline, mdiPlusMinusVariant, mdiThemeLightDark, mdiToggleSwitchVariantOff, mdiWeb} from "@mdi/js";
+import {mdiCloseBoxOutline, mdiPlusMinusVariant, mdiThemeLightDark, mdiToggleSwitchVariantOff, mdiWeb, mdiTeddyBear} from "@mdi/js";
 import SvgIcon from "vue3-icon";
 import {useBoardStore} from "@/stores/scoreBoard.js";
 import {computed} from "vue";
@@ -44,6 +44,12 @@ const msgs = computed(() => labels[store.currentLocale])
         <svg-icon type="mdi" size="36" :path="mdiThemeLightDark"></svg-icon>
       </button>
       <div>Dark Theme</div>
+    </div>
+    <div class="settingsRow">
+      <button class="squarebtn" @click="store.toggleKidsMode()">
+        <svg-icon type="mdi" size="36" :path="mdiTeddyBear"></svg-icon>
+      </button>
+      <div>Kids Mode</div>
     </div>
   </div>
 </template>
