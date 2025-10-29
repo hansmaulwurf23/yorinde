@@ -12,7 +12,7 @@ import {
   THREE_OF_A_KIND,
   YORINDE
 } from "@/constants.js";
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import labels from "@/labels.js";
 import TheProgressBar from "@/components/TheProgressBar.vue";
 
@@ -25,6 +25,8 @@ const dateFormat = {
 }
 const store = useBoardStore()
 const msgs = computed(() => labels[store.currentLocale])
+const importVisible = ref(false);
+const importData = ref('')
 
 function export_stats() {
   let stats = {
@@ -45,6 +47,14 @@ function export_stats() {
 
   element.click();
   document.body.removeChild(element);
+}
+
+function import_stats() {
+  let stats = JSON.parse(importData.value)
+  console.log(JSON.stringify(stats))
+  store.allTimeCounter = stats.allTimeCounter;
+  store.allTimeSum = stats.allTimeSum;
+  store.allTimeStats = stats.allTimeStats;
 }
 </script>
 
@@ -92,7 +102,12 @@ function export_stats() {
     </div>
 
     <div>
-      <button @click="export_stats()">Export</button>
+      <button class="btn btn-secondary m-1" @click="export_stats()">Export</button>
+      <button class="btn btn-secondary m-1" @click="importVisible = true">Import</button>
+    </div>
+    <div v-if="importVisible" class="mt-3">
+      <textarea v-model="importData" class="form-control" style="width: 80%; height: 150px"/>
+      <button class="btn btn-secondary m-1" @click="import_stats()">Einlesen</button>
     </div>
   </div>
 </template>
