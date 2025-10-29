@@ -25,6 +25,27 @@ const dateFormat = {
 }
 const store = useBoardStore()
 const msgs = computed(() => labels[store.currentLocale])
+
+function export_stats() {
+  let stats = {
+    'allTimeCounter': store.allTimeCounter,
+    'allTimeSum': store.allTimeSum,
+    'allTimeStats': store.allTimeStats
+  }
+
+  // credit: https://www.bitdegree.org/learn/javascript-download
+  let text = JSON.stringify(stats);
+  let filename = 'highscores.json';
+  let element = document.createElement('a');
+  element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+  document.body.removeChild(element);
+}
 </script>
 
 <template>
@@ -68,6 +89,10 @@ const msgs = computed(() => labels[store.currentLocale])
           </td>
         </tr>
       </table>
+    </div>
+
+    <div>
+      <button @click="export_stats()">Export</button>
     </div>
   </div>
 </template>
